@@ -3,7 +3,7 @@ import java.util.concurrent.ForkJoinPool;
 
 public class Main {
     public static void main(String[] args) {
-        String folderPath = "d:/Games/";
+        String folderPath = "D:\\Games\\";
         File file = new File(folderPath);
         long start = System.currentTimeMillis();
         FolderSizeCalculator calculator = new FolderSizeCalculator(file);
@@ -31,39 +31,30 @@ public class Main {
         return  sum;
     }
     public static String getHumanRedableSize(long size){
-                if (size / 1024 < 1 ){
+        if (size / 1024 < 1 ){
             return size + "B";
         } else if (size / 1024 < 1024) {
             return Math.round(size/1024L) + "Kb";
-        }else if (size / (1024*1024) < 1024) {
+        } else if (size / (1024*1024) < 1024) {
             return Math.round(size/(1024L*1024)) + "Mb";
-        }else if (size / (1024*1024*1024) < 1024) {
+        } else if (size / (1024*1024*1024) < 1024) {
             return Math.round(size/(1024L*1024*1024)) + "Gb";
-        }else {
+        } else {
             return Math.round(size/(1024L*1024*1024*1024)) + "Tb";
         }
     }
     public static Long getSizeFromeHumanReadble (String size){
-        long volium = 0l;
+        Long volium =0L;
         for (int i = 0; i < size.length();i++){
             char lit = size.charAt(i);
-            if (lit == 'B') {
-                volium = Long.parseLong(size.substring(0, i));
-                return volium;
-            } else if (lit == 'K') {
-                volium = Long.parseLong(size.substring(0, i));
-                return volium * 1024;
-            } else if (lit == 'M') {
-                volium = Long.parseLong(size.substring(0, i));
-                return volium * 1024*1024;
-            } else if (lit == 'G') {
-                volium = Long.parseLong(size.substring(0, i));
-                return volium * 1024*1024*1024;
-            } else if (lit == 'T') {
-                volium = Long.parseLong(size.substring(0, i));
-                return volium * 1024*1024*1024*1024;
+            switch (lit) {
+                case 'B' -> volium = Long.parseLong(size.substring(0, i));
+                case 'K' -> volium = Long.parseLong(size.substring(0, i)) * 1024;
+                case 'M' -> volium = Long.parseLong(size.substring(0, i)) * 1024 * 1024;
+                case 'G' -> volium = Long.parseLong(size.substring(0, i)) * 1024 * 1024 * 1024;
+                case 'T' -> volium = Long.parseLong(size.substring(0, i)) * 1024 * 1024 * 1024 * 1024;
             }
         }
-        return 0l;
+        return volium;
     }
 }
