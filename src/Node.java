@@ -4,11 +4,13 @@ import java.util.ArrayList;
 public class Node {
     private File folder;
     private ArrayList<Node> children;
-    private Long size;
+    private long size;
     private int level;
+    private long limit;
 
-    public Node (File folder){
+    public Node (File folder, long limit){
         this.folder = folder;
+        this.limit = limit;
         children = new ArrayList<>();
     }
 
@@ -29,6 +31,10 @@ public class Node {
         children.add(node);
     }
 
+    public long getLimit() {
+        return limit;
+    }
+
     public ArrayList<Node> getChildren (){
         return children;
     }
@@ -37,12 +43,23 @@ public class Node {
         this.level = level;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public String toString (){
         StringBuilder bilder = new StringBuilder();
         String size = SizeCalculator.getHumanRedableSize(getSize());
         bilder.append(folder.getName() + " - " + size + "\n");
         for (Node child : children){
-            bilder.append("  " + child.toString());
+            if (child.getSize() < limit){
+                continue;
+            }
+           String tab ="";
+            for ( int i= 0; i < child.getLevel();i++){
+                tab = tab + "   ";
+            }
+            bilder.append(tab + child.toString());
         }
         return bilder.toString();
     }
