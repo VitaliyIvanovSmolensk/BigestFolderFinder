@@ -27,9 +27,9 @@ public class ParametrBag {
     }
 
     public long getLimit (){
-        return 0;
+        return limit;
     }
     public String getPath () {
-        return "";
+        return path;
     }
 }

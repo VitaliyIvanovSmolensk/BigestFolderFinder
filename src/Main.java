@@ -3,8 +3,9 @@ import java.util.concurrent.ForkJoinPool;
 
 public class Main {
     public static void main(String[] args) {
-        String folderPath = "D:\\Games\\UnderMine\\";
-        long sizeLimit = 50 * 1024 * 1024;
+        ParametrBag bag = new ParametrBag(args);
+        String folderPath = bag.getPath();
+        long sizeLimit = bag.getLimit();
         File file = new File(folderPath);
         Node root =new Node(file, sizeLimit);
         long start = System.currentTimeMillis();
